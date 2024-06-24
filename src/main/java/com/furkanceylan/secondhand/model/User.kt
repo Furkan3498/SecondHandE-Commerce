@@ -7,17 +7,18 @@ import jakarta.persistence.Id
 
 
 @Entity
-data class User (
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Long,
-    val mail : String ,
+data class User(
 
-    val  firstName : String,
-    val  lastName :  String,
-    val  middleName : String,
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     val  id: Long ;
+    val mail: String = "",
+    val firstName: String = "",
 
-){
+    val lastName: String = "",
+    val middleName: String = ""
+
+) {
 
 }
 
