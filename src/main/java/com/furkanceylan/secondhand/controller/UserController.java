@@ -6,6 +6,7 @@ import com.furkanceylan.secondhand.dto.UpdateUserRequest;
 import com.furkanceylan.secondhand.dto.UserDto;
 import com.furkanceylan.secondhand.model.User;
 import com.furkanceylan.secondhand.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,8 @@ import java.util.List;
 @RequestMapping("/v1/user")
 public class UserController {
 
+
+    //@Autowired
     private final UserService userService;
 
 
