@@ -4,9 +4,12 @@ import com.furkanceylan.secondhand.dto.CreateUserRequest;
 import com.furkanceylan.secondhand.dto.UpdateUserRequest;
 import com.furkanceylan.secondhand.dto.UserDto;
 import com.furkanceylan.secondhand.dto.UserDtoConverter;
+import com.furkanceylan.secondhand.exceptions.UserIsNotActiveException;
 import com.furkanceylan.secondhand.exceptions.UserNotFoundException;
 import com.furkanceylan.secondhand.model.User;
 import com.furkanceylan.secondhand.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
+
+    private static final Logger logger= LoggerFactory.getLogger(UserService.class);
     private final UserDtoConverter userDtoConverter;
     private final UserRepository userRepository;
 
@@ -60,6 +65,11 @@ public class UserService {
 
     public UserDto updateUser(String mail, UpdateUserRequest updateUserRequest) {
         User userInformation = findUserByMail(mail);
+        logger.warn(String.format("The user wanted update is not Acitve , user mail: %s" , mail));
+
+        if (!userInformation.getActive()){
+            throw  new UserIsNotActiveException();
+        }
 
         //Model nesnesi
         User updatedUserInformation = new User(userInformation.getId(),userInformation.getMail(),updateUserRequest.getFirstName(), updateUserRequest.getLastName(),
