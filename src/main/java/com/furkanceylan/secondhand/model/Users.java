@@ -3,30 +3,16 @@ package com.furkanceylan.secondhand.model;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "user_name")
-public class User {
+@Table (name = "users")
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
 
     @Column(unique = true)
     private String mail;
@@ -35,7 +21,11 @@ public class User {
     private String middleName;
     private Boolean isActive;
 
-    public User(Long id, String mail, String firstName, String lastName, String middleName, Boolean isActive) {
+
+    @OneToMany(mappedBy = "user" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserDetails> userDetailsSet;
+
+    public Users(Long id, String mail, String firstName, String lastName, String middleName, Boolean isActive) {
         this.id = id;
         this.mail = mail;
         this.firstName = firstName;
@@ -43,7 +33,7 @@ public class User {
         this.middleName = middleName;
         this.isActive = isActive;
     }
-    public User(String mail, String firstName, String lastName, String middleName) {
+    public Users(String mail, String firstName, String lastName, String middleName) {
 
         this.mail = mail;
         this.firstName = firstName;
@@ -52,7 +42,7 @@ public class User {
 
     }
 
-    public User(Long id, String mail, String firstName, String lastName, String middleName) {
+    public Users(Long id, String mail, String firstName, String lastName, String middleName) {
         this.id = id;
         this.mail = mail;
         this.firstName = firstName;
@@ -60,7 +50,7 @@ public class User {
         this.middleName = middleName;
     }
 
-    public User(String mail, String firstName, String lastName, String middleName, Boolean isActive) {
+    public Users(String mail, String firstName, String lastName, String middleName, Boolean isActive) {
         this.mail = mail;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,7 +58,7 @@ public class User {
         this.isActive = isActive;
     }
 
-    public User() {
+    public Users() {
 
     }
 
@@ -97,12 +87,27 @@ public class User {
     }
 
     /*Modelde hiç setter yok. Bunun sebebi immutability olması.*/
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User that = (User) o;
+        Users that = (Users) o;
         return mail.equals(that.mail) && firstName.equals(that.firstName) && lastName.equals(that.lastName) && middleName.equals(that.middleName) && isActive.equals(that.isActive);
     }
 

@@ -6,7 +6,7 @@ import com.furkanceylan.secondhand.dto.UserDto;
 import com.furkanceylan.secondhand.dto.UserDtoConverter;
 import com.furkanceylan.secondhand.exceptions.UserIsNotActiveException;
 import com.furkanceylan.secondhand.exceptions.UserNotFoundException;
-import com.furkanceylan.secondhand.model.User;
+import com.furkanceylan.secondhand.model.Users;
 import com.furkanceylan.secondhand.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +43,7 @@ public class UserService {
      * */
 
     public UserDto getUserByMail(String mail){
-        User user = findUserByMail(mail);
+        Users user = findUserByMail(mail);
         return userDtoConverter.convert(user);
     }
     /*
@@ -55,7 +55,7 @@ public class UserService {
      * oluşturulması.
      * */
     public UserDto createUser(CreateUserRequest createUserRequest) {
-        User userInformation = new User(createUserRequest.getMail(),createUserRequest.getFirstName()
+        Users userInformation = new Users(createUserRequest.getMail(),createUserRequest.getFirstName()
                 ,createUserRequest.getLastName(),createUserRequest.getMiddleName(),false);
 
         //false verelim isActive parametresini active veya deactiveUser metodlarım zaten var.
@@ -64,7 +64,7 @@ public class UserService {
     }
 
     public UserDto updateUser(String mail, UpdateUserRequest updateUserRequest) {
-        User userInformation = findUserByMail(mail);
+        Users userInformation = findUserByMail(mail);
         logger.warn(String.format("The user wanted update is not Acitve , user mail: %s" , mail));
 
         if (!userInformation.getActive()){
@@ -72,7 +72,7 @@ public class UserService {
         }
 
         //Model nesnesi
-        User updatedUserInformation = new User(userInformation.getId(),userInformation.getMail(),updateUserRequest.getFirstName(), updateUserRequest.getLastName(),
+        Users updatedUserInformation = new Users(userInformation.getId(),userInformation.getMail(),updateUserRequest.getFirstName(), updateUserRequest.getLastName(),
                 updateUserRequest.getMiddleName(),userInformation.getActive());
 
         return userDtoConverter.convert(userRepository.save(updatedUserInformation));
@@ -93,18 +93,18 @@ public class UserService {
     }
 
 
-    private User findUserByMail(String mail){
+    private Users findUserByMail(String mail){
         return userRepository.findByMail(mail).orElseThrow(()->new UserNotFoundException("User couldn't be found by following mail: "+mail));
     }
 
-    private User findUserById(Long id){
+    protected Users findUserById(Long id){
         return userRepository.findById(id).orElseThrow(()->new UserNotFoundException("User couldn't be found by following id: "+id));
     }
 
     private void changeActivateUser(Long id,Boolean isActive){
-        User userInformation = findUserById(id);
+        Users userInformation = findUserById(id);
 
-        User updatedUserInformation = new User(userInformation.getId(),
+        Users updatedUserInformation = new Users(userInformation.getId(),
                 userInformation.getMail(),
                 userInformation.getFirstName(),
                 userInformation.getLastName(),

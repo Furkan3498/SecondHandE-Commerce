@@ -1,11 +1,11 @@
 package com.furkanceylan.secondhand.dto;
 
-import com.furkanceylan.secondhand.model.User;
+import com.furkanceylan.secondhand.model.Users;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDtoConverter {
-    public  UserDto convert(User user){
+    public  UserDto convert(Users user){
 
         UserDto userDto = new UserDto();
         userDto.setMail(user.getMail());
