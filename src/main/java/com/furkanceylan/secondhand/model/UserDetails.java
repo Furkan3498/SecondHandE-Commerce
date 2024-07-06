@@ -71,6 +71,10 @@ public class UserDetails {
         return postCode;
     }
 
+    public Users getUser() {
+        return user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
