@@ -32,7 +32,8 @@ public class UserDetailsService {
         //if user couldnt found this process throw user service bcs this service not work about user
         //eğer user bulunamazsa, bulunamama durumundaki işleyişi user servise verdik çünkü o buranın işi değil
 
-        UserDetails userDetails = new UserDetails(request.getPhoneNumber(),
+        UserDetails userDetails = new UserDetails(
+                request.getPhoneNumber(),
                 request.getAddress(),
                 request.getCity(),
                 request.getCountry(),

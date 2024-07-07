@@ -29,10 +29,17 @@ public class UserDetailsController {
 
     //Post ile Put Mapping farkı ResponseStatusde 201 ve 202 geri dönüş değeri için yoksa ikisi icinde Post Kullanılabilir
     @PutMapping("/{id}")
-    public ResponseEntity<UserDetailsDto> updateUserDetails(@PathVariable Long id , UpdateUserDetailsRequest updateUserRequest){
+    public ResponseEntity<UserDetailsDto> updateUserDetails(@PathVariable Long id , @RequestBody UpdateUserDetailsRequest updateUserRequest){
         return ResponseEntity.ok(userDetailsService.updateUserDetails(id,updateUserRequest));
     }
 
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUserDetails(@PathVariable Long id){
+        userDetailsService.deleteUserDetails(id);
+
+        return  ResponseEntity.ok().build();
+    }
 
 
 

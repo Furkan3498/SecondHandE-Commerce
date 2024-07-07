@@ -15,8 +15,8 @@ public class UserDetailsDtoConverter {
         userDetailsDto.setAddress(userDetails.getAddress());
         userDetailsDto.setCity(userDetails.getCity());
         userDetailsDto.setCountry(userDetails.getCountry());
-        userDetailsDto.setPhoneNumber(userDetailsDto.getPhoneNumber());
-        userDetailsDto.setPostCode(userDetailsDto.getPostCode());
+        userDetailsDto.setPhoneNumber(userDetails.getPhoneNumber());
+        userDetailsDto.setPostCode(userDetails.getPostCode());
 
         return userDetailsDto;
     }

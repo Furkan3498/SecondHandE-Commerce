@@ -2,6 +2,7 @@ package com.furkanceylan.secondhand.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,7 +24,23 @@ public class Users {
 
 
     @OneToMany(mappedBy = "user" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserDetails> userDetailsSet;
+    private Set<UserDetails> userDetailsSet = new HashSet<>();
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Set<UserDetails> getUserDetailsSet() {
+        return userDetailsSet;
+    }
+
+    public void setUserDetailsSet(Set<UserDetails> userDetailsSet) {
+        this.userDetailsSet = userDetailsSet;
+    }
 
     public Users(Long id, String mail, String firstName, String lastName, String middleName, Boolean isActive) {
         this.id = id;

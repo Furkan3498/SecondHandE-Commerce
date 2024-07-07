@@ -1,6 +1,7 @@
 package com.furkanceylan.secondhand.dto;
 
 
+import java.util.List;
 
 public class UserDto {
 
@@ -8,6 +9,15 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String middleName;
+    private List<UserDetailsDto> userDetailsDtos;
+
+    public List<UserDetailsDto> getUserDetailsDtos() {
+        return userDetailsDtos;
+    }
+
+    public void setUserDetailsDtos(List<UserDetailsDto> userDetailsDtos) {
+        this.userDetailsDtos = userDetailsDtos;
+    }
 
     public String getMail() {
         return mail;
