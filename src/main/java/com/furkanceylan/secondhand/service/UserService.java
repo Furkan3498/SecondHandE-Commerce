@@ -54,7 +54,7 @@ public class UserService {
      * Id'nin @field:GeneratedValue(strategy = GenerationType.IDENTITY) anatasyonu ile mysql tarafında
      * oluşturulması.
      * */
-    public UserDto createUser(CreateUserRequest createUserRequest) {
+    public UserDto createUser(final CreateUserRequest createUserRequest) {
         Users userInformation = new Users(createUserRequest.getMail(),createUserRequest.getFirstName()
                 ,createUserRequest.getLastName(),createUserRequest.getMiddleName(),false);
 
@@ -63,7 +63,7 @@ public class UserService {
         return userDtoConverter.convert(userRepository.save(userInformation));
     }
 
-    public UserDto updateUser(String mail, UpdateUserRequest updateUserRequest) {
+    public UserDto updateUser(final String mail,final UpdateUserRequest updateUserRequest) {
         Users userInformation = findUserByMail(mail);
         logger.warn(String.format("The user wanted update is not Acitve , user mail: %s" , mail));
 
@@ -78,30 +78,30 @@ public class UserService {
         return userDtoConverter.convert(userRepository.save(updatedUserInformation));
     }
 
-    public void deactivateUser(Long id) {
+    public void deactivateUser(final Long id) {
         changeActivateUser(id,false);
     }
 
-    public void activateUser(Long id) {
+    public void activateUser(final Long id) {
         changeActivateUser(id,true);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(final Long id) {
 
             userRepository.deleteById(id);
 
     }
 
 
-    private Users findUserByMail(String mail){
+    private Users findUserByMail( final String mail){
         return userRepository.findByMail(mail).orElseThrow(()->new UserNotFoundException("User couldn't be found by following mail: "+mail));
     }
 
-    protected Users findUserById(Long id){
+    protected Users findUserById( final Long id){
         return userRepository.findById(id).orElseThrow(()->new UserNotFoundException("User couldn't be found by following id: "+id));
     }
 
-    private void changeActivateUser(Long id,Boolean isActive){
+    private void changeActivateUser( final Long id,Boolean isActive){
         Users userInformation = findUserById(id);
 
         Users updatedUserInformation = new Users(userInformation.getId(),

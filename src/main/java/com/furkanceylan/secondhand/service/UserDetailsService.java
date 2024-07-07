@@ -42,6 +42,12 @@ public class UserDetailsService {
 
         return userDetailsDtoConverter.convert(userDetailsRepository.save(userDetails));
     }
+
+    // I use final on parametres bcs u want to be immutable project
+    // immutablelity makes Long lives Objects to Short lives Objects on memory
+    //Garbage Collector delete metod after use
+    //İmmutably projeyi long Livs Objectes Short lives yapar bu da memoryi de proje bitene kadar tutulmasını engeller.
+    // Garbage collektor Create metodunun user değişkenini bir daha kullanılmadığı için 41 satırda returnden önce hemen siler böylece hafızada veri tutulmaz
     public UserDetailsDto updateUserDetails(final Long userDetailsId, final UpdateUserDetailsRequest request){
 
         UserDetails userDetails = findUserDetailsById(userDetailsId);
@@ -60,6 +66,12 @@ public class UserDetailsService {
         return userDetailsDtoConverter.convert(userDetailsRepository.save(updateUserDetails));
     }
 
+
+    public void deleteUserDetails(Long id){
+        findUserDetailsById(id);
+
+        userDetailsRepository.deleteById(id);
+    }
 
     private UserDetails findUserDetailsById(Long userDetailsId){
 
